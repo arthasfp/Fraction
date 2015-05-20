@@ -25,7 +25,7 @@ public class Fraction {
     }
 
 
-    public Fraction add(Fraction fractionOne, Fraction fractionTwo) {
+    public static Fraction add(Fraction fractionOne, Fraction fractionTwo) {
         if (fractionOne.getDenominator() == 0 || fractionTwo.getDenominator() == 0)
             throw new ArithmeticException();
         return new Fraction((fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator()), (fractionOne.getDenominator() * fractionTwo.getDenominator()));
