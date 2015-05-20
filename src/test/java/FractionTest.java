@@ -6,7 +6,7 @@ public class FractionTest {
 
     @Test
     public void add_two_possitive_fractions() throws Exception {
-        Fraction expected = new Fraction(4, 4);
+        Fraction expected = new Fraction(2, 1);
         Fraction result = Fraction.add(new Fraction(1, 2), new Fraction(1, 2));
         assertEquals(expected, result);
     }

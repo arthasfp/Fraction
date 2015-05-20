@@ -24,11 +24,17 @@ public class Fraction {
         this.denominator = denominator;
     }
 
-
     public static Fraction add(Fraction fractionOne, Fraction fractionTwo) {
         if (fractionOne.getDenominator() == 0 || fractionTwo.getDenominator() == 0)
             throw new ArithmeticException();
-        return new Fraction((fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator()), (fractionOne.getDenominator() * fractionTwo.getDenominator()));
+        int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
+        Fraction fractionThree = new Fraction(0, 0);
+        fractionThree.setDenominator(nok);
+        fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator());
+        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
+        fractionThree.setDenominator(nok / nod);
+        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
+        return fractionThree;
     }
 
     public static Fraction mul(Fraction fractionOne, Fraction fractionTwo) {
@@ -71,5 +77,18 @@ public class Fraction {
         int result = numerator;
         result = 31 * result + denominator;
         return result;
+    }
+
+    public static int gcd(int a, int b) {
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+
+    public static int lcm(int a, int b) {
+        return a / gcd(a, b) * b;
     }
 }
