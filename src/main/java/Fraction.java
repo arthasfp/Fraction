@@ -12,7 +12,7 @@ public class Fraction {
 
     public static Fraction add(Fraction fractionOne, Fraction fractionTwo) {
         int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
-        Fraction fractionThree = new Fraction(0, 0);
+        Fraction fractionThree = new Fraction(1, 1);
         fractionThree.setDenominator(nok);
         fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator());
         int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
@@ -29,8 +29,9 @@ public class Fraction {
         return fractionThree;
     }
 
-    public static Fraction sub(Fraction fractionOne, Fraction fractionTwo) {int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
-        Fraction fractionThree = new Fraction(0, 0);
+    public static Fraction sub(Fraction fractionOne, Fraction fractionTwo) {
+        int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
+        Fraction fractionThree = new Fraction(1, 1);
         fractionThree.setDenominator(nok);
         fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() - fractionTwo.getNumerator() * fractionOne.getDenominator());
         int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
@@ -47,11 +48,12 @@ public class Fraction {
         return fractionThree;
     }
 
-    static int gcd(int a, int b){
+    static int gcd(int a, int b) {
         int c = a;
         int d = b;
-        return d == 0 ? c : gcd(d,c % d);
+        return d == 0 ? c : gcd(d, c % d);
     }
+
     public static int lcm(int a, int b) {
         return a / gcd(a, b) * b;
     }

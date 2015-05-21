@@ -27,14 +27,14 @@ public class FractionTest {
 
     @Test
     public void sub_two_possitive_fractions() throws Exception {
-        Fraction expected = new Fraction(4, 4);
+        Fraction expected = new Fraction(2, 1);
         Fraction result = Fraction.sub(new Fraction(3, 2), new Fraction(1, 2));
         assertEquals(expected, result);
     }
 
     @Test
     public void sub_two_fractions_with_one_negative_value() throws Exception {
-        Fraction expected = new Fraction(-8, 4);
+        Fraction expected = new Fraction(-4, 1);
         Fraction result = Fraction.sub(new Fraction(-3, 2), new Fraction(1, 2));
         assertEquals(expected, result);
     }
