@@ -6,6 +6,54 @@ public class Fraction {
     public Fraction(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+        if (denominator == 0)
+            throw new ArithmeticException();
+    }
+
+    public static Fraction add(Fraction fractionOne, Fraction fractionTwo) {
+        int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
+        Fraction fractionThree = new Fraction(0, 0);
+        fractionThree.setDenominator(nok);
+        fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator());
+        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
+        fractionThree.setDenominator(nok / nod);
+        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
+        return fractionThree;
+    }
+
+    public static Fraction mul(Fraction fractionOne, Fraction fractionTwo) {
+        Fraction fractionThree = new Fraction((fractionOne.getNumerator() * fractionTwo.getNumerator()), fractionOne.getDenominator() * fractionTwo.getDenominator());
+        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
+        fractionThree.setDenominator(fractionThree.getDenominator() / nod);
+        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
+        return fractionThree;
+    }
+
+    public static Fraction sub(Fraction fractionOne, Fraction fractionTwo) {int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
+        Fraction fractionThree = new Fraction(0, 0);
+        fractionThree.setDenominator(nok);
+        fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() - fractionTwo.getNumerator() * fractionOne.getDenominator());
+        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
+        fractionThree.setDenominator(nok / nod);
+        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
+        return fractionThree;
+    }
+
+    public static Fraction div(Fraction fractionOne, Fraction fractionTwo) {
+        Fraction fractionThree = new Fraction((fractionOne.getNumerator() * fractionTwo.getDenominator()), (fractionTwo.getNumerator() * fractionOne.getDenominator()));
+        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
+        fractionThree.setDenominator(fractionThree.getDenominator() / nod);
+        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
+        return fractionThree;
+    }
+
+    static int gcd(int a, int b){
+        int c = a;
+        int d = b;
+        return d == 0 ? c : gcd(d,c % d);
+    }
+    public static int lcm(int a, int b) {
+        return a / gcd(a, b) * b;
     }
 
     public int getNumerator() {
@@ -22,37 +70,6 @@ public class Fraction {
 
     public void setDenominator(int denominator) {
         this.denominator = denominator;
-    }
-
-    public static Fraction add(Fraction fractionOne, Fraction fractionTwo) {
-        if (fractionOne.getDenominator() == 0 || fractionTwo.getDenominator() == 0)
-            throw new ArithmeticException();
-        int nok = lcm(fractionOne.getDenominator(), fractionTwo.getDenominator());
-        Fraction fractionThree = new Fraction(0, 0);
-        fractionThree.setDenominator(nok);
-        fractionThree.setNumerator(fractionOne.getNumerator() * fractionTwo.getDenominator() + fractionTwo.getNumerator() * fractionOne.getDenominator());
-        int nod = gcd(fractionThree.getNumerator(), fractionThree.getDenominator());
-        fractionThree.setDenominator(nok / nod);
-        fractionThree.setNumerator(fractionThree.getNumerator() / nod);
-        return fractionThree;
-    }
-
-    public static Fraction mul(Fraction fractionOne, Fraction fractionTwo) {
-        if (fractionOne.getDenominator() == 0 || fractionTwo.getDenominator() == 0)
-            throw new ArithmeticException();
-        return new Fraction((fractionOne.getNumerator() * fractionTwo.getNumerator()), fractionOne.getDenominator() * fractionTwo.getDenominator());
-    }
-
-    public static Fraction sub(Fraction fractionOne, Fraction fractionTwo) {
-        if (fractionOne.getDenominator() == 0 || fractionTwo.getDenominator() == 0)
-            throw new ArithmeticException();
-        return new Fraction((fractionOne.getNumerator() * fractionTwo.getDenominator() - fractionTwo.getNumerator() * fractionOne.getDenominator()), (fractionOne.getDenominator() * fractionTwo.getDenominator()));
-    }
-
-    public static Fraction div(Fraction fractionOne, Fraction fractionTwo) {
-        if (fractionOne.getDenominator() == 0 || fractionTwo.getNumerator() == 0)
-            throw new ArithmeticException();
-        return new Fraction((fractionOne.getNumerator() * fractionTwo.getDenominator()), (fractionTwo.getNumerator() * fractionOne.getDenominator()));
     }
 
     @Override
@@ -77,18 +94,5 @@ public class Fraction {
         int result = numerator;
         result = 31 * result + denominator;
         return result;
-    }
-
-    public static int gcd(int a, int b) {
-        while (b != 0) {
-            int tmp = a % b;
-            a = b;
-            b = tmp;
-        }
-        return a;
-    }
-
-    public static int lcm(int a, int b) {
-        return a / gcd(a, b) * b;
     }
 }
